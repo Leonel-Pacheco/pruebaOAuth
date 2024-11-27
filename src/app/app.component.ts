@@ -1,13 +1,25 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { GoogleAuthService } from './services/google-auth.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  title = 'pruebaOAuth';
+export class AppComponent implements OnInit {
+  constructor(private googleAuthService: GoogleAuthService) {}
+
+  ngOnInit(): void {
+    this.googleAuthService.loadGoogleApi();
+  }
+
+  authorize(): void {
+    this.googleAuthService.handleAuthClick();
+  }
+
+  signout(): void {
+    this.googleAuthService.handleSignoutClick();
+  }
 }
